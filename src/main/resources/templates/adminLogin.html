@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Admin Sign in</title>
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link th:href="@{/bootstrap/css/signin.css}" rel="stylesheet">
+</head>
+
+<body class="text-center">
+<form class="form-signin" th:action="@{/admin/login}" method="post">
+    <!--管理员请求登录，发送给AdminLoginController-->
+
+    <img class="mb-4" th:src="@{/img/bootstrap-solid.svg}" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">请登录</h1>
+
+    <!--接收来自AdminLoginController中的ApplyLogin发送的msg，用于反馈信息-->
+    <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+
+    <label class="sr-only" text="username">用户名</label>
+    <input type="text" name="username" class="form-control" placeholder="用户名" required="" autofocus="">
+
+    <label class="sr-only" text="password">密码</label>
+    <input type="password" name="password" class="form-control" placeholder="密码" required="">
+    <!--<div class="checkbox mb-3">
+        <label>
+            <input type="checkbox" value="remember-me"> 记住我
+        </label>
+    </div>-->
+    <button class="btn btn-lg btn-primary btn-block" type="submit">登录 </button>
+    <p class="mt-5 mb-3 text-muted">© By Zyuan</p>
+    <a th:href="@{/lol}">返回</a>
+
+</form>
+
+</body>
+
+</html>

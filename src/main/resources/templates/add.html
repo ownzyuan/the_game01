@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>添加</title>
+
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/bootstrap/css/signin.css}" rel="stylesheet">
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+-->
+</head>
+
+<body class="text-center">
+
+<form th:if="${'LoL'.equals(LoL)}" class="form-signin" th:action="@{/add/insertLol}" method="post">
+    <div class="form-group">
+        <h1 class="h3 mb-3 font-weight-normal">添加第[[${count+deletedCount}]]位英雄</h1>
+    </div>
+    <div class="form-group">
+        <label>英雄编号</label>
+        <input type="text" th:value="${count + deletedCount}" class="form-control" name="hId" placeholder="英雄编号" readonly>
+    </div>
+    <div class="form-group">
+        <label>英雄称号</label>
+        <input type="text" name="designation" class="form-control" placeholder="英雄称号" required="" autofocus="">
+    </div>
+    <div class="form-group">
+        <label>英雄名</label>
+        <input type="text" name="heroName" class="form-control" placeholder="英雄名" required="">
+    </div>
+    <p style="color: red ; font-size: 15px" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+    <div class="form-group">
+        性别:&nbsp;&nbsp;
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" value="男">
+            <label class="form-check-label">男</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" value="女">
+            <label class="form-check-label">女</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label style="color: #0000FF">所属势力</label>
+        <select class="form-control" name="force" style="height: 45px;">
+            <option th:each="forces:${forces}" th:text="${forces.getFName()}"
+                    th:value="${forces.getFName()}"></option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label style="color: red">主职业</label>
+        <select class="form-control" name="occupationOne" style="height: 45px;">
+            <option th:each="occupation:${occupation}" th:text="${occupation.getNameCn()}"
+                    th:value="${occupation.getNameCn()}"></option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label style="color: red">副职业</label>
+        <select class="form-control" name="occupationTwo" style="height: 45px;">
+            <option th:each="occupation:${occupation}" th:text="${occupation.getNameCn()}"
+                    th:value="${occupation.getNameCn()}"></option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label style="color: #00FF00">推荐分路一</label>
+        <select class="form-control" name="routeOne" style="height: 45px;">
+            <option th:each="routes:${routes}" th:text="${routes.getRoute()}"
+                    th:value="${routes.getRoute()}"></option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label style="color: #00FF00">推荐分路二</label>
+        <select class="form-control" name="routeTwo" style="height: 45px;">
+            <option th:each="routes:${routes}" th:text="${routes.getRoute()}"
+                    th:value="${routes.getRoute()}"></option>
+        </select>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">添加</button>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-sm btn-primary"
+                style=" width: 120px; height:40px; float: left">
+            <a style="color:white;font-size: 16px" th:href="@{/manageLol}">返回管理页面</a>
+        </button>
+        <button class="btn btn-sm btn-primary"
+                style=" width: 120px; height:40px; float: right;color: #00FF00">
+            <a style="color:whitesmoke;font-size: 16px" th:href="@{/adminLol}">返回首页</a>
+        </button>
+    </div>
+</form>
+
+<form th:if="${'LolForces'.equals(LolForces)}" class="form-signin" th:action="@{/add/insertForces}" method="post">
+    <div class="form-group">
+        <h1 class="h3 mb-3 font-weight-normal">添加第[[${count}]]个势力</h1>
+    </div>
+    <div class="form-group">
+        <label>势力编号</label>
+        <input type="text" th:value="${count}" name="fId" class="form-control" placeholder="势力编号" readonly>
+    </div>
+
+    <div class="form-group">
+        <label>势力名</label>
+        <input type="text" name="fName" class="form-control" placeholder="势力名" required="" autofocus="">
+    </div>
+    <div class="form-group">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">添加</button>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-sm btn-primary"
+                style=" width: 120px; height:40px; float: left">
+            <a style="color:white;font-size: 16px" th:href="@{/manageLol}">返回管理页面</a>
+        </button>
+        <button class="btn btn-sm btn-primary"
+                style=" width: 120px; height:40px; float: right;color: #00FF00">
+            <a style="color:whitesmoke;font-size: 16px" th:href="@{/adminLol}">返回首页</a>
+        </button>
+    </div>
+</form>
+
+</body>
+
+</html>
